@@ -26,49 +26,68 @@ struct ContentView: View {
     
     var body: some View {
         
-        HStack {
-         
-            VStack {
-                
-                Label("", systemImage: "42.circle")
-                Text("Change amount of Red with the slider: \(Int(rGuess * 255.0))")
-                ColorSlider(value: $rGuess, textColor: .red)
-                Color(red: rGuess, green: rGuess, blue: /*@START_MENU_TOKEN@*/0.5/*@END_MENU_TOKEN@*/)
-                
-                Text("Shining")
-                    .font(.title)
-                    .fontWeight(.heavy)
-                    .foregroundColor(Color(red: 1.0, green: 0.4, blue: 0.0, opacity: 1.0))
-                    .multilineTextAlignment(.center)
-                
-                Button(action: {self.showAlert = true}) {
-                    Text("Alert")
-                }.alert(isPresented: $showAlert){
-                    Alert(title: Text("GG"), message: Text(String(computeResult())))
-                }.padding()
-                    
-                    
-                List {
-                    ForEach(items) { item in
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                            .fontWeight(.regular)
-                            .foregroundColor(Color(red: 1.0, green: 0.4, blue: 0.0, opacity: 1.0))
-                    }
-                    .onDelete(perform: deleteItems)
-                }
-                .padding()
-                .toolbar {
-                    #if os(iOS)
-                    EditButton()
-                    #endif
-
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
+            //NavigationLink(destination: Text("Destination")/*@END_MENU_TOKEN@*/) { /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Content@*/Text("Navigate") }
             
-        }
+            HStack {
+                
+                VStack {
+                    
+                    Label("", systemImage: "42.circle")
+                        
+                    Text("Change amount of Red with the slider: \(Int(rGuess * 255.0))")
+                        
+                    
+                    VStack {
+                        ColorSlider(value: $rGuess, textColor: .red)
+                        
+                    }.padding(.horizontal)
+                    ZStack(alignment: .center) {
+                       
+                        Color(red: rGuess, green: rGuess, blue: 0.5)
+                            .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .topLeading)
+                        Text("60")
+                            .padding(.all,5)
+                            .background(Color.white)
+                            .mask(Circle())
+                            .foregroundColor(.black)
+                        
+                    }
+                    
+                    Text("Shining")
+                        .font(.title)
+                        .fontWeight(.heavy)
+                        .foregroundColor(Color(red: 1.0, green: 0.4, blue: 0.0, opacity: 1.0))
+                        .multilineTextAlignment(.center)
+                    
+                    Button(action: {self.showAlert = true}) {
+                        Text("Alert")
+                    }.alert(isPresented: $showAlert){
+                        Alert(title: Text("GG"), message: Text(String(computeResult())))
+                    }.padding()
+                    
+                    
+                    List {
+                        ForEach(items) { item in
+                            Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                                .fontWeight(.regular)
+                                .foregroundColor(Color(red: 1.0, green: 0.4, blue: 0.0, opacity: 1.0))
+                        }
+                        .onDelete(perform: deleteItems)
+                    }
+                    .padding()
+                    .toolbar {
+                        #if os(iOS)
+                        EditButton()
+                        #endif
+                        
+                        Button(action: addItem) {
+                            Label("Add Item", systemImage: "plus")
+                        }
+                    }
+                }.padding(.horizontal)
+                
+            }
+
         
         
     }
@@ -116,6 +135,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ContentView(rGuess: 0.3).previewDevice("iPhone 11").environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+                
             ContentView(rGuess: 0.8).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
         }
     }
@@ -131,6 +151,8 @@ struct ColorSlider: View {
         HStack {
             Text("0").foregroundColor(textColor)
             Slider(value: $value)
+                .background(textColor)
+                .cornerRadius(10)
             Text("255").foregroundColor(textColor)
         }
         
