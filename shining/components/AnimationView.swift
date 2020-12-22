@@ -15,7 +15,7 @@ struct AnimationView: View {
       Animation.interpolatingSpring(mass: 1.0, stiffness: 100.0, damping: 10, initialVelocity: 0)
     }
     var body: some View {
-        
+       
         VStack(alignment: .leading ){
             Button(action: {
                 withAnimation(.easeIn) {

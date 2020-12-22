@@ -14,9 +14,9 @@ struct shiningApp: App {
     
     var body: some Scene {
         WindowGroup {
-            WelcomeView()
-//            ContentView(rGuess: 0.5)
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            //WelcomeView()
+            ContentView(rGuess: 0.5)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
             
         }
 //        .onChange(of: ScenePhase){ (newScenePhase) in
