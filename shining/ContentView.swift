@@ -136,7 +136,7 @@ struct ContentView_Previews: PreviewProvider {
         Group {
             ContentView(rGuess: 0.3).previewDevice("iPhone 11").environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
                 
-            ContentView(rGuess: 0.8).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+//            ContentView(rGuess: 0.8).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
         }
     }
 }
